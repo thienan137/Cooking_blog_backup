@@ -225,3 +225,33 @@ module.exports.login_post = async (req, res) => {
   }
 
 }
+
+/**
+ * GET /my-recipes
+ * My Recipe Page
+*/
+exports.myRecipes = async(req, res) => {
+  try {
+    const limitNumber = 20;
+    const recipe = await Recipe.find({ userID: "abc" }).limit(limitNumber);
+    res.render('my-recipes', { title: 'Cooking Blog - My Recipes', recipe } );
+  } catch (error) {
+    res.satus(500).send({message: error.message || "Error Occured" });
+  }
+} 
+
+
+/**
+ * POST /my-recipes
+ * DELETE RECIPE
+*/
+exports.deleteRecipeOnPost = async(req, res) => {
+  try {
+    let recipeId = req.body.recipeId;
+    const recipe = await Recipe.deleteOne({ _id: recipeId });
+    res.redirect('/my-recipes');
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+}
+
