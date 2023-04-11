@@ -3,7 +3,7 @@ const router = express.Router();
 const recipeController = require("../controllers/recipeController");
 
 /* 
-    app routes
+    app routes 
 */
 router.get("/", recipeController.homepage);
 router.get("/categories", recipeController.exploreCategories);

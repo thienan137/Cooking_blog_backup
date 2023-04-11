@@ -243,7 +243,7 @@ exports.myRecipes = async(req, res) => {
 
 /**
  * POST /my-recipes
- * DELETE RECIPE
+ * DELETE RECIPE function
 */
 exports.deleteRecipeOnPost = async(req, res) => {
   try {
