@@ -255,3 +255,63 @@ exports.deleteRecipeOnPost = async(req, res) => {
   }
 }
 
+/**
+ * GET /edit-my-recipes
+ * Edit My Recipe Page
+*/
+exports.editMyRecipes = async(req, res) => {
+  const infoErrorsObj = req.flash('infoErrors');
+  const infoSubmitObj = req.flash('infoSubmit');
+  try {
+    let recipeId = req.params.id;
+    const recipe = await Recipe.findById(recipeId);
+    res.render('edit-my-recipes', { title: 'Cooking Blog - Submit Recipe', infoErrorsObj, infoSubmitObj, recipe} );
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal server error'); // Handle server error
+  }
+} 
+
+
+/**
+ * POST /update-my-recipes
+ * Update My Recipe Page
+*/
+
+exports.updateRecipe = async (req, res) => {
+  try {
+    const recipeId = req.params.id; // Get the recipe ID from request parameters
+    const { name, description, ingredients, category } = req.body; // Get updated recipe data from request body
+
+    // Split ingredients string by comma and store as array
+    const ingredientsArray = ingredients.split(',').map(ingredient => ingredient.trim());
+
+    // Update the recipe in the database
+    const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, {
+      name,
+      description,
+      ingredients: ingredientsArray, // Use the updated ingredients array
+      category
+    }, { new: true });
+
+    // If recipe is not found
+    if (!updatedRecipe) {
+      return res.status(404).json({
+        success: false,
+        message: 'Recipe not found'
+      });
+    }
+    res.redirect('/my-recipes');
+    // return res.status(200).json({
+    //   success: true,
+    //   message: 'Recipe updated successfully',
+    //   recipe: updatedRecipe,
+    // });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error updating recipe',
+      error: err.message
+    });
+  }
+};

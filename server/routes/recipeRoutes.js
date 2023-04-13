@@ -19,6 +19,10 @@ router.get('/signup', recipeController.signup);
 router.post('/submit-recipe', recipeController.submitRecipeOnPost);
 router.get('/my-recipes', recipeController.myRecipes);
 router.post('/delete-recipes/:id', recipeController.deleteRecipeOnPost);
+router.get('/edit-my-recipes/:id', recipeController.editMyRecipes);
+router.post('/update-recipes/:id', recipeController.updateRecipe);
+
+
 
 
 
