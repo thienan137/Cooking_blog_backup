@@ -6,7 +6,7 @@ const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
-
+const {requireRecipe, checkUser} = require('./server/middleware/recipeMiddleware');
 
 const app = express();
 const port = 3000;
@@ -17,6 +17,7 @@ app.use(express.urlencoded( { extended: true } ));
 app.use(express.static('public'));
 app.use(expressLayouts);
 app.use(express.json());
+
 
 
 app.use(cookieParser('CookingBlogSecure'));
@@ -45,6 +46,9 @@ app.set('view engine', 'ejs');
 //Routes
 const routes = require("./server/routes/recipeRoutes.js");
 app.use("/", routes);
+app.get('*', checkUser);
+app.get('/about', requireRecipe, (req, res) => res.render('about'));
+app.use(routes);
 
 //listen
 app.listen(port, () => console.log(`Listening to port ${port}`));

@@ -15,17 +15,13 @@ router.get('/explore-random', recipeController.exploreRandom);
 router.get('/submit-recipe', recipeController.submitRecipe);
 router.get('/about', recipeController.about);
 router.get('/login', recipeController.login);
+router.post('/login', recipeController.login_post);
 router.get('/signup', recipeController.signup);
+router.post('/signup', recipeController.signup_post);
 router.post('/submit-recipe', recipeController.submitRecipeOnPost);
 router.get('/my-recipes', recipeController.myRecipes);
 router.post('/delete-recipes/:id', recipeController.deleteRecipeOnPost);
-
-
-
-
-
-
-
+router.get('/logout', recipeController.logout_get);
 
 
 module.exports = router;

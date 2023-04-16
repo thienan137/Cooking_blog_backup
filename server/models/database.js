@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
@@ -13,4 +13,5 @@ db.once("open", function () {
 // Models
 require("./category");
 require("./recipe");
+require("./user");
 
