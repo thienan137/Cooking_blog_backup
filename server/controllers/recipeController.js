@@ -281,7 +281,7 @@ module.exports.logout_get = (req, res) => {
 exports.myRecipes = async(req, res) => {
   try {
     const limitNumber = 20;
-    const recipe = await Recipe.find({ userID: "abc" }).limit(limitNumber);
+    const recipe = await Recipe.find({ email: "abcmyrcp@gmail.com" }).limit(limitNumber);
     res.render('my-recipes', { title: 'Cooking Blog - My Recipes', recipe } );
   } catch (error) {
     res.satus(500).send({message: error.message || "Error Occured" });
@@ -363,3 +363,17 @@ exports.updateRecipe = async (req, res) => {
     });
   }
 };
+
+/**
+ * GET /my-recipes
+ * My Recipe Page
+*/
+exports.exploreUserRecipes = async(req, res) => {
+  try {
+    let recipeEmail = req.params.email;
+    const recipe = await Recipe.find({ 'email': recipeEmail });
+    res.render('user-recipe', { title: 'Cooking Blog - My Recipes', recipe } );
+  } catch (error) {
+    res.status(500).send({message: error.message || "Error Occurred" });
+  }
+}

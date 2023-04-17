@@ -21,6 +21,8 @@ router.post('/signup', recipeController.signup_post);
 router.post('/submit-recipe', recipeController.submitRecipeOnPost);
 router.get('/my-recipes', recipeController.myRecipes);
 router.post('/delete-recipes/:id', recipeController.deleteRecipeOnPost);
+router.get('/user-recipes/:email', recipeController.exploreUserRecipes);
+
 
 router.get('/logout', recipeController.logout_get);
 

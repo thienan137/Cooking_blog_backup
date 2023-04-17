@@ -26,6 +26,10 @@ const recipeSchema = new mongoose.Schema({
     type: String,
     required: 'This field is required.'
   },
+  user: {   // Add a 'user' field to store the reference to the user who created the recipe
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 });
 
 recipeSchema.index({ name: 'text', description: 'text' });
